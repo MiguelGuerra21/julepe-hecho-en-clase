@@ -13,7 +13,6 @@ public class Juego
     private Mazo mazo;
     private int paloQuePinta;
 
-
     /**
      * Constructor de la clase Juego
      *
@@ -55,11 +54,10 @@ public class Juego
             System.out.println(jugadores[i].getNombre());
         }
         System.out.println();
-        
+
         jugar();
     }
-    
-    
+
     /**
      * Método que reparte 5 cartas a cada uno de los jugadores presentes en
      * la partida y elige un palo para que pinte.
@@ -96,8 +94,6 @@ public class Juego
 
         return paloQuePinta;           
     }
-   
-
 
     /**
      * Devuelve la posición del jugador cuyo nombre se especifica como
@@ -118,8 +114,7 @@ public class Juego
         }
         return posicion;
     }
-    
-        
+
     /**
      * Desarrolla una partida de julepe teniendo en cuenta que el mazo y los
      * jugadores ya han sido creados. 
@@ -145,19 +140,43 @@ public class Juego
      */
     private void jugar()
     {
-
-        
+        int contadorRondas = 0;
+        mazo.barajar();
+        repartir();
+        while(contadorRondas < 5){
+            jugadores[0].verCartasJugador();
+            Baza baza = new Baza(jugadores.length , paloQuePinta);
+            Scanner e = new Scanner(System.in);
+            System.out.println("Indica la carta que quieres tirar:");
+            String cartaTirada = e.nextLine();
+            while(cartaTirada == null){
+                System.out.println("Error, introduzca carta valida:");
+                cartaTirada = e.nextLine();
+            }
+            Carta primeraCarta = jugadores[0].tirarCarta(cartaTirada);
+            baza.addCarta(primeraCarta , jugadores[0].getNombre());
+            int contador = 1;
+            while (contador < jugadores.length){
+                Carta cartaBotActual = jugadores[contador].tirarCartaInteligentemente(baza.getPaloPrimeraCartaDeLaBaza(),baza.cartaQueVaGanandoLaBaza(),paloQuePinta );
+                baza.addCarta(cartaBotActual , jugadores[contador].getNombre());
+                contador++;
+            }
+            Carta cartaGanadora = baza.cartaQueVaGanandoLaBaza();
+            String nombreGanador = baza.nombreJugadorQueVaGanandoLaBaza();
+            int posicionJugadorQueGano = encontrarPosicionJugadorPorNombre(nombreGanador);
+            jugadores[posicionJugadorQueGano - 1].addBaza(baza);
+            System.out.println(nombreGanador + " ha ganado la baza con " +cartaGanadora.toString());
+            contadorRondas++;
+        }
+        System.out.println("Has ganado " +jugadores[0].getNumeroBazasGanadas());
+        if(jugadores[0].getNumeroBazasGanadas() < 2){
+            System.out.println("Eres Julepe");
+        }
+        else{
+            System.out.println("Bien Jugado!");
+        }
     }    
 }
-
-
-
-
-
-
-
-
-
 
 
 

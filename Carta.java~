@@ -76,6 +76,7 @@ public class Carta
   public boolean ganaA(Carta cartaAComparar, int paloQuePinta)
   {
   	boolean gana = false;
+    
     if (palo == cartaAComparar.getPalo()) {
       // En caso de que tengan el mismo palo...
       if (getPosicionEscalaTute() > cartaAComparar.getPosicionEscalaTute()) {
@@ -88,6 +89,7 @@ public class Carta
         gana = true;
       }
     } 
+    
     return gana;
   }
   
