@@ -144,17 +144,24 @@ public class Juego
         mazo.barajar();
         repartir();
         while(contadorRondas < 5){
+            boolean haTirado = false;
             jugadores[0].verCartasJugador();
             Baza baza = new Baza(jugadores.length , paloQuePinta);
             Scanner e = new Scanner(System.in);
-            System.out.println("Indica la carta que quieres tirar:");
-            String cartaTirada = e.nextLine();
-            while(cartaTirada == null){
-                System.out.println("Error, introduzca carta valida:");
-                cartaTirada = e.nextLine();
+            while(haTirado == false){
+                System.out.println("Indica la carta que quieres tirar:");
+                String cartaTirada = e.nextLine();
+                Carta primeraCarta = jugadores[0].tirarCarta(cartaTirada);
+                if(primeraCarta != null){
+                     haTirado = true;
+                     baza.addCarta(primeraCarta , jugadores[0].getNombre());
+                     System.out.println("Has tirado " + primeraCarta.toString());
+                }
+                else{
+                    System.out.println("Error, introduzca carta valida:");
+                }
+                
             }
-            Carta primeraCarta = jugadores[0].tirarCarta(cartaTirada);
-            baza.addCarta(primeraCarta , jugadores[0].getNombre());
             int contador = 1;
             while (contador < jugadores.length){
                 Carta cartaBotActual = jugadores[contador].tirarCartaInteligentemente(baza.getPaloPrimeraCartaDeLaBaza(),baza.cartaQueVaGanandoLaBaza(),paloQuePinta );
@@ -177,7 +184,5 @@ public class Juego
         }
     }    
 }
-
-
 
 
