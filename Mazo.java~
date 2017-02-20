@@ -10,6 +10,7 @@ public class Mazo
 {
 
     private ArrayList<Carta> mazo;
+    private ArrayList<Palo> palos;
 
     /**
      * Constructor for objects of class Mazo
@@ -18,7 +19,7 @@ public class Mazo
     {
         mazo = new ArrayList<Carta>();
 
-        for (Palo palos : Palo.values() ) {
+        for (Palo palos : palos ) {
             for (int valorActual = 1; valorActual <= 12; valorActual++) {
                 if (valorActual != 8 && valorActual != 9) {
                     mazo.add(new Carta(valorActual, palos));

@@ -42,7 +42,7 @@ public class Baza
 
     }
     
-    public Palo getPaloPrimeraCartaDeLaBaza()
+    public int getPaloPrimeraCartaDeLaBaza()
     {
         Palo paloPrimeraCarta = null;
         

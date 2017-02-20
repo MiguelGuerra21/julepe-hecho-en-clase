@@ -9,7 +9,7 @@ import java.util.ArrayList;
 public class Jugador
 {
     private String nombre;
-    public Carta[] cartasQueTieneEnLaMano;
+    private Carta[] cartasQueTieneEnLaMano;
     private int numeroCartasEnLaMano;
     private ArrayList<Baza> bazasGanadas;
     
@@ -124,7 +124,7 @@ public class Jugador
     /**
      * Método que tira una carta "inteligentemente"
      */
-    public Carta tirarCartaInteligentemente(int paloPrimeraCartaDeLaBaza, 
+    public Carta tirarCartaInteligentemente(Palo paloPrimeraCartaDeLaBaza, 
                                             Carta cartaQueVaGanando,
                                             int paloQuePinta)
     {

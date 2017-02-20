@@ -11,7 +11,7 @@ public class Juego
 {
     private Jugador[] jugadores;
     private Mazo mazo;
-    private int paloQuePinta;
+    private Palo paloQuePinta;
 
     /**
      * Constructor de la clase Juego
@@ -64,7 +64,7 @@ public class Juego
      *
      * @return El palo que pinta tras repartir
      */
-    private int repartir() 
+    private Palo repartir() 
     {
         mazo.barajar();
 
@@ -78,16 +78,16 @@ public class Juego
 
         paloQuePinta = nuevaCarta.getPalo();
         switch (paloQuePinta) {
-            case 0:
+            case OROS:
             System.out.println("Pintan oros");
             break;
-            case 1:
+            case COPAS:
             System.out.println("Pintan copas");
             break;
-            case 2:
+            case ESPADAS:
             System.out.println("Pintan espadas");
             break;
-            case 3:
+            case BASTOS:
             System.out.println("Pintan bastos");
             break;
         }
@@ -104,13 +104,13 @@ public class Juego
      */
     private int encontrarPosicionJugadorPorNombre(String nombre)
     {
-        int posicion = 0;
-        boolean buscador = false;
-        while(buscador == false && posicion < jugadores.length){
+        int posicion = -1;
+        int  buscador = 0;
+        while(buscador < jugadores.length && posicion != -1){
             if(jugadores[posicion].getNombre().equals(nombre)){
-                buscador = true;
+                posicion = buscador;
             }
-            posicion++;
+            buscador++;
         }
         return posicion;
     }
@@ -148,7 +148,6 @@ public class Juego
             jugadores[0].verCartasJugador();
             Baza baza = new Baza(jugadores.length , paloQuePinta);
             Scanner e = new Scanner(System.in);
-            Carta primeraCarta = jugadores[0].tirarCarta(cartaTirada);
             while(haTirado == false){
                 System.out.println("Indica la carta que quieres tirar:");
                 String cartaTirada = e.nextLine();
@@ -172,7 +171,7 @@ public class Juego
             Carta cartaGanadora = baza.cartaQueVaGanandoLaBaza();
             String nombreGanador = baza.nombreJugadorQueVaGanandoLaBaza();
             int posicionJugadorQueGano = encontrarPosicionJugadorPorNombre(nombreGanador);
-            jugadores[posicionJugadorQueGano - 1].addBaza(baza);
+            jugadores[posicionJugadorQueGano].addBaza(baza);
             System.out.println(nombreGanador + " ha ganado la baza con " +cartaGanadora.toString());
             contadorRondas++;
         }
