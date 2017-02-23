@@ -77,20 +77,7 @@ public class Juego
         }
 
         paloQuePinta = nuevaCarta.getPalo();
-        switch (paloQuePinta) {
-            case OROS:
-            System.out.println("Pintan oros");
-            break;
-            case COPAS:
-            System.out.println("Pintan copas");
-            break;
-            case ESPADAS:
-            System.out.println("Pintan espadas");
-            break;
-            case BASTOS:
-            System.out.println("Pintan bastos");
-            break;
-        }
+        System.out.println("Pintan :" + paloQuePinta.toString().toLowerCase();
 
         return paloQuePinta;           
     }
@@ -106,8 +93,8 @@ public class Juego
     {
         int posicion = -1;
         int  buscador = 0;
-        while(buscador < jugadores.length && posicion != -1){
-            if(jugadores[posicion].getNombre().equals(nombre)){
+        while(buscador < jugadores.length && posicion == -1){
+            if(jugadores[buscador].getNombre().equals(nombre)){
                 posicion = buscador;
             }
             buscador++;
@@ -164,7 +151,9 @@ public class Juego
             }
             int contador = 1;
             while (contador < jugadores.length){
-                Carta cartaBotActual = jugadores[contador].tirarCartaInteligentemente(baza.getPaloPrimeraCartaDeLaBaza(),baza.cartaQueVaGanandoLaBaza(),paloQuePinta );
+                Carta cartaBotActual = jugadores[contador].tirarCartaInteligentemente(baza.getPaloPrimeraCartaDeLaBaza(),
+                                                                                      baza.cartaQueVaGanandoLaBaza(),
+                                                                                      paloQuePinta );
                 baza.addCarta(cartaBotActual , jugadores[contador].getNombre());
                 contador++;
             }

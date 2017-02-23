@@ -12,7 +12,6 @@ public class Jugador
     private Carta[] cartasQueTieneEnLaMano;
     private int numeroCartasEnLaMano;
     private ArrayList<Baza> bazasGanadas;
-    
 
     /**
      * Constructor for objects of class Jugador
@@ -25,7 +24,6 @@ public class Jugador
         bazasGanadas = new ArrayList<Baza>();
     }
 
- 
     /**
      * Metodo que hace que el jugador reciba una carta
      */
@@ -36,7 +34,7 @@ public class Jugador
             numeroCartasEnLaMano++;
         }
     }
-    
+
     /**
      * Metodo que muestra las cartas del jugador por pantalla
      */
@@ -49,7 +47,6 @@ public class Jugador
         }
     }
 
-    
     /**
      * Metodo que devuelve el nombre del jugador
      */
@@ -57,7 +54,7 @@ public class Jugador
     {
         return nombre;
     }
-    
+
     /**
      * Metodo que devuelve la carta especificada como parametro si
      * el jugador dispone de ella y simula que se lanza a la mesa
@@ -65,9 +62,9 @@ public class Jugador
     public Carta tirarCarta(String nombreCarta)
     {
         Carta cartaTirada = null;
-        
+
         if (numeroCartasEnLaMano > 0) {
-            
+
             int cartaActual = 0;
             boolean buscando = true;
             while (cartaActual < cartasQueTieneEnLaMano.length && buscando) {
@@ -82,27 +79,21 @@ public class Jugador
                 }
                 cartaActual++;
             }
-            
-            
-            
+
         }
-                
         return cartaTirada;
     }
-    
-    
-    
+
     /**
      * Método que tira una carta aleatoria 
      */
     public Carta tirarCartaAleatoria() 
     {
         Carta cartaTirada = null;
-        
-        
+
         if (numeroCartasEnLaMano > 0) {
             Random aleatorio = new Random();
-            
+
             boolean elJugadorHaTiradoUnaCarta = false;
             while (elJugadorHaTiradoUnaCarta == false) {
                 int posicionAleatoria = aleatorio.nextInt(5);
@@ -114,33 +105,53 @@ public class Jugador
                     elJugadorHaTiradoUnaCarta = true;
                 }
             }
-            
+
         }
-        
+
         return cartaTirada;
     }
-    
-    
+
     /**
-     * Método que tira una carta "inteligentemente"
+     * Metodo que tira una carta "inteligentemente"(con un poco de retraso mental pero beh...)
      */
     public Carta tirarCartaInteligentemente(Palo paloPrimeraCartaDeLaBaza, 
-                                            Carta cartaQueVaGanando,
-                                            Palo paloQuePinta)
-    {
-        return tirarCartaAleatoria();        
+    Carta cartaQueVaGanando,
+    Palo paloQuePinta){
+        Carta cartaATirar = null;
+        Random aleatorio = new Random();
+        int posicionAleatoria = aleatorio.nextInt(5);
+        //Si le quedan cartas en la mano
+       
+        if(numeroCartasEnLaMano > 0){
+            //mira el palo que hay en la baza como primero y asiste intentando ganar, si no puede ganar solo asiste y si no tiene ninguna de ambas tira una aleatoria.
+            for(Carta carta : cartasQueTieneEnLaMano){
+                //lee el palo de la carta a la que asistir y lo compara con las cartas de su mano encuentra la carta mas alta para asistir o ganar y si no puede tira una cualquiera.
+                if(carta != null){
+                    if(carta.getPalo() == paloPrimeraCartaDeLaBaza && carta.ganaA(cartaQueVaGanando, paloQuePinta)){
+                        cartaATirar = carta;
+                    }
+                    else if(carta.getPalo() == paloPrimeraCartaDeLaBaza){
+                        cartaATirar = carta;
+                    }
+                    else{
+                        cartaATirar = cartasQueTieneEnLaMano[posicionAleatoria];
+                    }
+                }
+            }
+            return cartaATirar;
+        }
+        tirarCarta(cartaATirar.toString());
+        return cartaATirar;
     }
-    
-    
+
     /**
      * Metodo que hace que jugador recoja una baza ganada
      */
-    public void addBaza(Baza bazaGanada)
-    {
+    public void addBaza(Baza bazaGanada){
         bazasGanadas.add(bazaGanada);
+
     }
-    
-    
+
     /**
      * Metodo que devuelve el numero de bazas ganadas por el jugador hasta
      * el momento
@@ -149,35 +160,6 @@ public class Jugador
     {
         return bazasGanadas.size();
     }
-    
-    
-    
+
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
