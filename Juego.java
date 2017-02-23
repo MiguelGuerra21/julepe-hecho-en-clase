@@ -139,22 +139,31 @@ public class Juego
                 System.out.println("Indica la carta que quieres tirar:");
                 String cartaTirada = e.nextLine();
                 Carta primeraCarta = jugadores[0].tirarCarta(cartaTirada);
+                int contadorJugadores = 0;
+                while(contadorJugadores < jugadores.length ){  //muestro las cartas de los jugadores
+                    System.out.println("\nlas cartas de "+jugadores[contadorJugadores].getNombre()+ " son");        
+                    jugadores[contadorJugadores].verCartasJugador();
+                    contadorJugadores++;
+                }
                 if(primeraCarta != null){
-                     haTirado = true;
-                     baza.addCarta(primeraCarta , jugadores[0].getNombre());
-                     System.out.println("Has tirado " + primeraCarta.toString());
+                    haTirado = true;
+                    baza.addCarta(primeraCarta , jugadores[0].getNombre());
+                    System.out.println("Has tirado " + primeraCarta.toString());
                 }
                 else{
                     System.out.println("Error, introduzca carta valida:");
                 }
-                
+
             }
             int contador = 1;
             while (contador < jugadores.length){
                 Carta cartaBotActual = jugadores[contador].tirarCartaInteligentemente(baza.getPaloPrimeraCartaDeLaBaza(),
-                                                                                      baza.cartaQueVaGanandoLaBaza(),
-                                                                                      paloQuePinta );
-                baza.addCarta(cartaBotActual , jugadores[contador].getNombre());
+                                                                                        baza.cartaQueVaGanandoLaBaza(),
+                                                                                        paloQuePinta );
+                if(cartaBotActual != null){
+                    jugadores[contador].tirarCarta(cartaBotActual.toString());
+                    baza.addCarta(cartaBotActual , jugadores[contador].getNombre());
+                }
                 contador++;
             }
             Carta cartaGanadora = baza.cartaQueVaGanandoLaBaza();
@@ -173,5 +182,4 @@ public class Juego
         }
     }    
 }
-
 

@@ -121,7 +121,6 @@ public class Jugador
         Random aleatorio = new Random();
         int posicionAleatoria = aleatorio.nextInt(5);
         //Si le quedan cartas en la mano
-       
         if(numeroCartasEnLaMano > 0){
             //mira el palo que hay en la baza como primero y asiste intentando ganar, si no puede ganar solo asiste y si no tiene ninguna de ambas tira una aleatoria.
             for(Carta carta : cartasQueTieneEnLaMano){
